@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
+import { CognitoService } from './cognito.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cognitoService: CognitoService) { }
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
@@ -26,13 +27,19 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
-  login({username, password}: any): Observable<any> {
-    if (username === 'admin' && password === 'admin') {
-      this.setToken('ThisIsTheDummyToken.testets.test');
-      return of({name: 'test', username:'Akash'});
-    } else {
-      return throwError(new Error('failed to login'));
-    }
+  signIn(username: any): void {
+    this.cognitoService.signIn(username).then(() => {
+      return true;
+    }).catch(() => {
+      return false;
+    });
+
+    // if (username === 'admin' && password === 'admin') {
+    //   this.setToken('ThisIsTheDummyToken.testets.test');
+    //   return of({name: 'test', username:'Akash'});
+    // } else {
+    //   return throwError(new Error('failed to login'));
+    // }
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { CognitoService, IUser } from 'src/app/core/services/cognito.service';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,15 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  user: IUser;
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private cognitoService: CognitoService
+    ) {
+      this.user = {} as IUser;
+    }
   
   showSpinner = false;
   
@@ -25,18 +33,17 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
   
-  onLogin() {
+  public onLogin(): void {
     if(this.loginForm.valid) {
-      this.auth.login(this.loginForm.value).subscribe(
-        (result) => {
-          this.router.navigate(['dashboard']);
-        },
-        (err: Error) => {
-          alert(err.message);
-        }
-      )
+      console.log("this.loginForm.value ==> ",this.loginForm.value);
+      this.cognitoService.signIn(this.user).then(() => {
+        console.log("Login Successful", this.loginForm.value);
+        this.router.navigate(['/dashboard']);
+      }).catch((err) => {
+        console.log("Login Failed ==> ",err);
+        return false;
+      });
     }
-    console.log(this.loginForm.value);
   }
 
 }
