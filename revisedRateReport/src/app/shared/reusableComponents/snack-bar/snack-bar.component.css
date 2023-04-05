@@ -1,0 +1,11 @@
+mat-form-field {
+    margin-right: 12px;
+}
+:host {
+    display: flex;
+    justify-content: center;
+  }
+
+.snack-bar-style {
+  color: rgb(255, 255, 255);
+}

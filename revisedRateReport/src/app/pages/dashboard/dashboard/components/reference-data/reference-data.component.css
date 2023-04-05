@@ -1,0 +1,47 @@
+.drag-drop-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.tenor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 8px;
+}
+
+.mat-card {
+  height: 100%;
+}
+
+.mat-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 16px;
+  cursor: grab;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.tenor span {
+  flex: 1;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.toggle {
+  margin-left: auto;
+}

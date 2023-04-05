@@ -1,1 +1,46 @@
-<p>reference-data works!</p>
+<h2>Reference Data</h2>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Look back days</mat-label>
+      <input matInput type="number" [formControl]="lookBackDays" />
+      <!-- <mat-error *ngIf="lookBackDays.invalid">{{getErrorText(lookBackDays)}}</mat-error> -->
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Waterfall filter criteria validation</mat-label>
+      <mat-select [formControl]="waterfallFilter" [multiple]="true" placeholder="Select">
+        <mat-option *ngFor="let option of waterfallFilterOptions" [value]="option">{{option}}</mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="waterfallFilter.invalid">{{getErrorText(waterfallFilter)}}</mat-error> -->
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Variable Benchmark Calculation</mat-label>
+      <mat-select [formControl]="variableBenchmark" placeholder="Select">
+        <mat-option *ngFor="let option of variableBenchmarkOptions" [value]="option">{{option}}</mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="variableBenchmark.invalid">{{getErrorText(variableBenchmark)}}</mat-error> -->
+    </mat-form-field>
+
+        <div class="waterfall-section">
+            <ul id="waterfall-list" class="sortable">
+                <li>Drag and drop the waterfall levels to change their order.</li>
+                <li>Turn On or Off ( Enable/ Disable) the tenor using slide toggle button</li>
+                <li>Click "Save" to save the changes.</li>
+            </ul>
+        </div>
+
+        <div class="drag-drop-container" cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <div class="tenor" *ngFor="let tenor of tenors" cdkDrag>
+                <span>{{tenor.level}}</span>
+                <mat-slide-toggle [checked]="tenor.isEnabled" (change)="onToggleChange($event.checked, tenor)">
+                </mat-slide-toggle>
+            </div>
+        </div>
+ 
+        <div>
+        <pre>{{ jsonOutput }}</pre>
+        </div>
+  
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </form>

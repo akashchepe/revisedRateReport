@@ -1,0 +1,17 @@
+a {
+    color: #3f51b5;
+    background-color: #fff;
+    text-decoration: none;
+  }
+  
+  /* Active link */
+  a.active {
+    background-color: #3f51b5 !important;
+    color: #fff;
+  }
+  
+  /* Hover effect */
+  a:hover {
+    background-color: #3f51b5 !important;
+    color: #fff;
+  }

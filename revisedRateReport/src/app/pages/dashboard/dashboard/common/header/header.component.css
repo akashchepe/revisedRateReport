@@ -1,0 +1,8 @@
+ mat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 16px;
+  background-color: var(--primary-color);
+}

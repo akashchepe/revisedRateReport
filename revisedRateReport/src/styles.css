@@ -2,3 +2,18 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+  /* .mat-drawer-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mat-drawer-content {
+    flex-grow: 1;
+  }
+  
+  .mat-card-footer {
+    height: 50px;
+  }  /* adjust as needed */

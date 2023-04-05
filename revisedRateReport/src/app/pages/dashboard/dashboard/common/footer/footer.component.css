@@ -1,0 +1,16 @@
+mat-card-footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    min-height: 30px;
+    padding: 10px 0 25px 0;
+    color: var(--footer-text-color);
+    background-color: var(--primary-color);
+}
+
+mat-card-footer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  

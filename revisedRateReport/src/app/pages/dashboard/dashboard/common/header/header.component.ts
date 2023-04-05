@@ -1,22 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { LoaderService } from 'src/app/core/services/loader.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   @ViewChild('drawer') drawer!: MatDrawer;
   @ViewChild('toolbar') toolbar: any;
   
   //setting drawer open by default
   isDrawerOpened = true;
 
-  constructor(public loaderService: LoaderService) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.auth.logout();
   }
 
   toggleDrawer() {
