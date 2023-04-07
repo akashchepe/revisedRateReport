@@ -12,6 +12,10 @@ const routes: Routes = [
       { path: 'ref-data', component: ReferenceDataComponent},
       { path: 'generate-report', component: GenerateReportComponent},
       { path: 'l3-file-upload', component: L3FileUploadComponent},
+      { path: 'user-admin',
+          loadChildren: () => import('../user-admin/user-admin.module')
+          .then(m => m.UserAdminModule)
+      },
       { path: '', redirectTo: '/dashboard/ref-data', pathMatch: 'full'}
     ]
   }

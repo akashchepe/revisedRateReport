@@ -4,16 +4,14 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-  /* .mat-drawer-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .mat-drawer-content {
-    flex-grow: 1;
-  }
-  
-  .mat-card-footer {
-    height: 50px;
-  }  /* adjust as needed */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* set the height of the container to make it take up the full height of the parent */
+}
+
+.card {
+  width: 300px; /* set the width of the card */
+  height: 400px; /* set the height of the card */
+}

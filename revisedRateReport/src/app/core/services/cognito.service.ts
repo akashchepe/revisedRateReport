@@ -4,7 +4,9 @@ import { Amplify, Auth } from 'aws-amplify';
 import { environmentVariables } from 'src/environments/environment';
 
 export interface IUser {
+  name: string,
   email: string,
+  phone_number: string,
   password: string,
   code: string,
   username: string
@@ -25,9 +27,20 @@ export class CognitoService {
 
   public signUp(user: IUser): Promise<any> {
     return Auth.signUp({
-      username: user.email,
-      password: user.password
-    });
+      username: user.username,
+      password: user.password,
+      attributes: {
+        name: user.name,
+        email: user.email,
+        phone_number: user.phone_number
+      }
+    })
+    .then((data) => {
+      console.log("SignUp Successful", data);
+    })
+    .catch((error) => {
+      console.log("SignUp Error", error);
+    })
   }
 
   public confirmSignUp(user: IUser): Promise<any> {
@@ -35,7 +48,24 @@ export class CognitoService {
   }
    
   public signIn(user: IUser): Promise<any> {
-    return Auth.signIn(user.email, user.password).then(() => {
+    console.log("User from cognito ==> ",user);
+    return Auth.signIn(user.username, user.password).then((user) => {
+      console.log("Inside sign in  ==> ",user);
+      if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+        // User need to change temp password
+        const newPassword = 'Test@1234';
+        Auth.sendCustomChallengeAnswer(user, newPassword)
+        .then(() => {
+          console.log("Password Changed Successfully.", user);
+        })
+        .catch((error) => {
+          console.log("Error changing password ", error);
+        });
+
+      } else {
+        console.log("====> ",user);
+        console.log("User is authenticated");
+      }
       this.authenticationSubject.next(true);
     });
   }

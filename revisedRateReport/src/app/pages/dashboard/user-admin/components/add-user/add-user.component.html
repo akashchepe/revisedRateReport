@@ -1,0 +1,56 @@
+<div class="container">
+
+    <mat-card class="card">
+        <mat-card-header>
+        <mat-card-title>Create New User</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="userForm" (ngSubmit)="signUp()">
+        <mat-card-content>
+            <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" formControlName="name" 
+                    id="name" name="name">
+                </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" formControlName="email" 
+                    id="email" name="email">
+                </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Phone Number" formControlName="phone_number" 
+                    id="phone_number" name="phone_number">
+                </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Username" formControlName="username" 
+                    id="username" name="username">
+                </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+            <td><mat-form-field class="example-full-width">
+                <input matInput placeholder="Password" formControlName="password"
+                type="password" id="password" name="password">
+            </mat-form-field></td>
+            </tr></table>
+            <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button type="submit" color="primary">Create User</button>
+        </mat-card-actions>
+        </form>
+    </mat-card>
+
+</div>

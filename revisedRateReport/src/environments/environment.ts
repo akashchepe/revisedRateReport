@@ -17,8 +17,19 @@ export const environment = {
 
 
 export const environmentVariables = {
+  // DEV env
+  // cognito: {
+  //   mandatorySignIn: true,
+  //   region:'eu-west-1',
+  //   userPoolId: 'eu-west-1_uF71SgNIE',
+  //   userPoolWebClientId: '1hesrkm76r08f7gq7hbgufhkgi'
+  // }
+  
+  // POC
   cognito: {
-    userPullId: '',
-    userPoolWebClient: ''
+    mandatorySignIn: true,
+    region:'eu-west-1',
+    userPoolId: 'eu-west-1_hIPGyBkSv',
+    userPoolWebClientId: '3b2v3fmms9vma8540dlgklbgnr'
   }
 };

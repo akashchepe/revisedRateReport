@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   public onLogin(): void {
     if(this.loginForm.valid) {
       console.log("this.loginForm.value ==> ",this.loginForm.value);
+      this.user = <IUser>this.loginForm.value;
       this.cognitoService.signIn(this.user).then(() => {
         console.log("Login Successful", this.loginForm.value);
         this.router.navigate(['/dashboard']);
