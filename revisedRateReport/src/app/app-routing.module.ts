@@ -7,13 +7,13 @@ import { NewPasswordComponent } from './pages/login/components/new-password/new-
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'new-password', component: NewPasswordComponent},
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'dashboard', 
-    canActivate: [AuthGuard],
-    loadChildren: () => 
-      import('./pages/dashboard/dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
-  { path: '**', component: LoginComponent}
+  canActivate: [AuthGuard],
+  loadChildren: () => 
+  import('./pages/dashboard/dashboard/dashboard.module').then((m) => m.DashboardModule),
+},
+{ path: '', redirectTo: '/login', pathMatch: 'full'},
+{ path: '**', component: LoginComponent}
 ];
 
 @NgModule({

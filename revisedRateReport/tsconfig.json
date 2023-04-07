@@ -21,7 +21,8 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "aot": true  // Add this line to enable AOT compilation
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { CognitoService, IUser } from 'src/app/core/services/cognito.service';
+import { UserLoginService } from '../../services/user-login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
+    private userLoginService: UserLoginService,
     private cognitoService: CognitoService
     ) {
       this.user = {} as IUser;
@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
   
   showSpinner = false;
   
-  ngOnInit(): void {
-    if(this.auth.isLoggedIn()) {
+  async ngOnInit() {
+    if(await this.cognitoService.isLoggedIn()) {
       this.router.navigate(['dashboard']);
     }
   }
@@ -35,10 +35,15 @@ export class LoginComponent implements OnInit {
   
   public onLogin(): void {
     if(this.loginForm.valid) {
-      console.log("this.loginForm.value ==> ",this.loginForm.value);
       this.user = <IUser>this.loginForm.value;
-      this.cognitoService.signIn(this.user).then(() => {
-        console.log("Login Successful", this.loginForm.value);
+        //Once the user is authenticated, the Cognito service 
+        //should return an ID token, access token, and refresh token.
+        this.cognitoService.signIn(this.user).then((session) => {
+
+        // The User login service saving these tokens to local storage for later use.
+        // this.userLoginService.saveUserTokens(session);
+
+        // Navigate to dashboard screen
         this.router.navigate(['/dashboard']);
       }).catch((err) => {
         console.log("Login Failed ==> ",err);

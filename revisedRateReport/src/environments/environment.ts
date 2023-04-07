@@ -29,7 +29,7 @@ export const environmentVariables = {
   cognito: {
     mandatorySignIn: true,
     region:'eu-west-1',
-    userPoolId: 'eu-west-1_hIPGyBkSv',
+    userPoolId: 'eu-west-1_hlPGyBkSv',
     userPoolWebClientId: '3b2v3fmms9vma8540dlgklbgnr'
   }
 };

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of, throwError } from 'rxjs';
+import { HelperService } from './helper.service';
 import { CognitoService } from './cognito.service';
 
 @Injectable({
@@ -8,31 +8,27 @@ import { CognitoService } from './cognito.service';
 })
 export class AuthService {
 
-  constructor(private router: Router, private cognitoService: CognitoService) { }
+  constructor(
+    private router: Router, 
+    private helperService: HelperService,
+    private cognitoService: CognitoService
+    ) { }
 
-  setToken(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  isLoggedIn() {
-    return this.getToken() != null;
+  isAuthenticated() {
+    return this.cognitoService.isAuthenticated();
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.cognitoService.signOut();
     this.router.navigate(['login']);
   }
 
-  signIn(username: any): void {
-    this.cognitoService.signIn(username).then(() => {
-      return true;
-    }).catch(() => {
-      return false;
-    });
+  // signIn(username: any): void {
+  //   this.cognitoService.signIn(username).then(() => {
+  //     return true;
+  //   }).catch(() => {
+  //     return false;
+  //   });
 
     // if (username === 'admin' && password === 'admin') {
     //   this.setToken('ThisIsTheDummyToken.testets.test');
@@ -40,6 +36,6 @@ export class AuthService {
     // } else {
     //   return throwError(new Error('failed to login'));
     // }
-  }
+ //}
 
 }

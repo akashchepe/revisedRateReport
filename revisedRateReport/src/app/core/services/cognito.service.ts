@@ -46,34 +46,73 @@ export class CognitoService {
   public confirmSignUp(user: IUser): Promise<any> {
     return Auth.confirmSignUp(user.email, user.code);
   }
-   
-  public signIn(user: IUser): Promise<any> {
-    console.log("User from cognito ==> ",user);
-    return Auth.signIn(user.username, user.password).then((user) => {
-      console.log("Inside sign in  ==> ",user);
-      if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
-        // User need to change temp password
-        const newPassword = 'Test@1234';
-        Auth.sendCustomChallengeAnswer(user, newPassword)
-        .then(() => {
-          console.log("Password Changed Successfully.", user);
-        })
-        .catch((error) => {
-          console.log("Error changing password ", error);
-        });
 
-      } else {
-        console.log("====> ",user);
-        console.log("User is authenticated");
+  async signIn(user: IUser) {
+    try {
+      const signInResult = await Auth.signIn(user.username, user.password);
+      if (signInResult.challengeName === 'NEW_PASSWORD_REQUIRED') {
+        // User needs to change temporary password
+        const newPassword = 'Test@1234';
+        return await Auth.completeNewPassword(signInResult, newPassword);
       }
+      // User is authenticated, retrieve tokens     
       this.authenticationSubject.next(true);
-    });
+      return await Auth.currentSession();
+    } catch (error) {
+      // User authentication failed, handle error here
+      console.error(error);
+    }
   }
 
-  public signOut(): Promise<any> {
-    return Auth.signOut().then(() => {
-      this.authenticationSubject.next(false);
-    });
+  async isLoggedIn(): Promise<boolean> {
+    try {
+      await Auth.currentAuthenticatedUser();
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+   
+  // public signIn(user: IUser): Promise<any> {
+  //   return Auth.signIn(user.username, user.password).then((user) => {
+  //     if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+  //       // User need to change temp password
+  //       const newPassword = 'Test@1234';
+  //       Auth.sendCustomChallengeAnswer(user, newPassword)
+  //       .then(() => {
+  //         console.log("Password Changed Successfully.", user);
+  //       })
+  //       .catch((error) => {
+  //         console.log("Error changing password ", error);
+  //       });
+
+  //     } else {
+  //       console.log("====> ",user);
+  //       this.authService.setToken('AccessToken', user.signInUserSession.accessToken.jwtToken);
+  //       this.authService.setToken('IdToken', user.signInUserSession.accessToken.jwtToken);
+  //       this.authService.setToken('RefreshToken', user.signInUserSession.accessToken.jwtToken);
+  //       console.log("User is authenticated");
+  //     }
+  //     this.authenticationSubject.next(true);
+  //   });
+  // }
+
+  // public signOut(): Promise<any> {
+  //   return Auth.signOut().then(() => {
+  //     this.authenticationSubject.next(false);
+  //   });
+  // }
+
+  async signOut() {
+    try {
+      await Auth.signOut();
+      // Do any additional cleanup or navigation here
+      // this.helperService.removeJwtToken('accessToken');
+      // this.helperService.removeJwtToken('idToken');
+      // this.helperService.removeJwtToken('refreshToken');
+    } catch (error) {
+      console.log('Error signing out:', error);
+    }
   }
 
   public getUser(): Promise<any> {
