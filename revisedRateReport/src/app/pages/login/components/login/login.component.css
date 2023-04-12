@@ -1,8 +1,62 @@
-.example-card {
-  max-width: 30%;
-  margin: 15% 0 0 35%;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f1f1f1;
 }
 
-.example-full-width {
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.302), 0 4px 8px rgba(60, 64, 67, 0.149), 0 0 0 1px rgba(60, 64, 67, 0.098);
+  width: 348px;
+  padding: 48px 40px;
+}
+
+.logo {
+  background-image: url('src/assets/images/emmi-logo-default-svg.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 30%;
+  margin-bottom: 36px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.login-btn {
+  width: 30%;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.links a {
+  color: #4285f4;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.login-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-form-field {
   width: 100%;
 }

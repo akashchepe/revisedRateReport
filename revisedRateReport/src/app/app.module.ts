@@ -14,6 +14,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { LoginComponent } from './pages/login/components/login/login.component';
 import { NewPasswordComponent } from './pages/login/components/new-password/new-password.component';
@@ -36,7 +38,9 @@ import { SharedModule } from './shared/shared.module';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatTabsModule
   ],
   providers: [
     AuthService,

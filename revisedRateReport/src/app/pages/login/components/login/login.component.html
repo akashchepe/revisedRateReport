@@ -1,28 +1,81 @@
+<div *ngIf="loaderService.isLoading | async" class="spinner-loader">
+  <!-- <mat-spinner class="spinner-center"></mat-spinner> -->
+</div>
+
+<div class="container">
+  <div class="progress-bar-style">
+    <mat-progress-bar mode="indeterminate" [style.display]="showSpinner ? 'block' : 'none'">
+    </mat-progress-bar>
+  <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
+  <div class="card">
+    <div class="logo"></div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" id="username" name="username">
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" id="password" name="password">
+        </mat-form-field>
+      </div>
+
+      <div class="links">
+        <a mat-flat-button href="#" (click)="resetTemporaryPassword()">Temporary password reset</a>
+        <button mat-raised-button type="submit" color="primary" class="login-btn">Sign in</button>
+      </div>
+      
+    </form>
+  </div>
+
+</div>
+
+</div>
+
+
+
+<!-- 
+
+<div *ngIf="loaderService.isLoading | async" class="spinner-loader">
+  <mat-spinner class="spinner-center"></mat-spinner>
+</div>
+
 <mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <mat-card-content>
-      <table class="example-full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username" formControlName="username" 
-              id="username" name="username">
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-        <td><mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" formControlName="password"
-           type="password" id="password" name="password">
-        </mat-form-field></td>
-      </tr></table>
-      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button type="submit" color="primary">Login</button>
-    </mat-card-actions>
-  </form>
-</mat-card>
+ 
+  <mat-tab-group>
+    <mat-tab label="Login"> 
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <mat-card-content>
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Username" formControlName="username" 
+                  id="username" name="username">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+            <td><mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" formControlName="password"
+               type="password" id="password" name="password">
+            </mat-form-field></td>
+          </tr></table>
+          <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+        </mat-card-content>
+          <button mat-raised-button type="submit" color="primary">Login</button>
+      </form>
+
+    </mat-tab>
+    <mat-tab label="New Password Reset">
+
+      <app-new-password></app-new-password>
+
+    </mat-tab>
+  </mat-tab-group>
+  
+</mat-card> -->

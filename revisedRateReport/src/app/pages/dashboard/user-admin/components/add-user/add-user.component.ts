@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CognitoService, IUser } from 'src/app/core/services/cognito.service';
+import { HelperService } from 'src/app/core/services/helper.service';
 
 @Component({
   selector: 'app-add-user',
@@ -23,7 +24,8 @@ export class AddUserComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private cognitoService: CognitoService
+    private cognitoService: CognitoService,
+    private helperService: HelperService,
     ) {
       this.user = {} as IUser;
     }
@@ -35,12 +37,14 @@ export class AddUserComponent implements OnInit {
 
   signUp() {
     if(this.userForm.valid) {
-      console.log("this.loginForm.value ==> ",this.userForm.value);
+      this.helperService.showLoader();
       this.user = <IUser>this.userForm.value;
       this.cognitoService.signUp(this.user).then(() => {
-        console.log("SignUp Successful", this.userForm.value);
+        this.helperService.showSuccess('User created successfully. Please reset the temoprary password.');
+        this.helperService.hideLoader();
       }).catch((err) => {
-        console.log("Sign Up Failed ==> ",err);
+        
+        this.helperService.showErrorInConsole(err);
         return false;
       });
     }

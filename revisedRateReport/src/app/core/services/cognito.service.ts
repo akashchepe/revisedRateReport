@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Amplify, Auth } from 'aws-amplify';
 import { environmentVariables } from 'src/environments/environment';
+import { HelperService } from './helper.service';
 
 export interface IUser {
   name: string,
@@ -18,7 +19,7 @@ export interface IUser {
 export class CognitoService {
   public authenticationSubject: BehaviorSubject<any>;
 
-  constructor() { 
+  constructor(private helperService: HelperService) { 
     Amplify.configure({
       Auth: environmentVariables.cognito
     });
@@ -58,9 +59,13 @@ export class CognitoService {
       // User is authenticated, retrieve tokens     
       this.authenticationSubject.next(true);
       return await Auth.currentSession();
-    } catch (error) {
+    } catch (error: any) {
       // User authentication failed, handle error here
-      console.error(error);
+      if (error.code === "NotAuthorizedException") {
+        this.helperService.showError(error.message);
+      } else {
+        console.error(error);
+      }
     }
   }
 
@@ -73,36 +78,6 @@ export class CognitoService {
     }
   }
    
-  // public signIn(user: IUser): Promise<any> {
-  //   return Auth.signIn(user.username, user.password).then((user) => {
-  //     if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
-  //       // User need to change temp password
-  //       const newPassword = 'Test@1234';
-  //       Auth.sendCustomChallengeAnswer(user, newPassword)
-  //       .then(() => {
-  //         console.log("Password Changed Successfully.", user);
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error changing password ", error);
-  //       });
-
-  //     } else {
-  //       console.log("====> ",user);
-  //       this.authService.setToken('AccessToken', user.signInUserSession.accessToken.jwtToken);
-  //       this.authService.setToken('IdToken', user.signInUserSession.accessToken.jwtToken);
-  //       this.authService.setToken('RefreshToken', user.signInUserSession.accessToken.jwtToken);
-  //       console.log("User is authenticated");
-  //     }
-  //     this.authenticationSubject.next(true);
-  //   });
-  // }
-
-  // public signOut(): Promise<any> {
-  //   return Auth.signOut().then(() => {
-  //     this.authenticationSubject.next(false);
-  //   });
-  // }
-
   async signOut() {
     try {
       await Auth.signOut();
