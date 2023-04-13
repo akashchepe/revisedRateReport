@@ -1,9 +1,85 @@
-<h2>Reference Data</h2>
+<mat-stepper
+  class="example-stepper"
+  [orientation]="(stepperOrientation | async)!">
+  <mat-step [stepControl]="firstFormGroup" label="Waterfall filter criteria">
+    <form [formGroup]="firstFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Corridor generation">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup" label="Days over settlement & SAF">
+    <form [formGroup]="thirdFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourthFormGroup" label="Waterfall level">
+    <form [formGroup]="fourthFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="fourthCtrl" placeholder="Ex. 12345678" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fifthFormGroup" label="Benchmark calculation">
+    <form [formGroup]="fifthFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="fifthCtrl" placeholder="Ex. 12345678" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirm</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+
+
+
+
+<!-- <h2>Reference Data</h2>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>Look back days</mat-label>
       <input matInput type="number" [formControl]="lookBackDays" />
-      <!-- <mat-error *ngIf="lookBackDays.invalid">{{getErrorText(lookBackDays)}}</mat-error> -->
+      <!- <mat-error *ngIf="lookBackDays.invalid">{{getErrorText(lookBackDays)}}</mat-error> ->
     </mat-form-field>
   
     <mat-form-field>
@@ -11,7 +87,7 @@
       <mat-select [formControl]="waterfallFilter" [multiple]="true" placeholder="Select">
         <mat-option *ngFor="let option of waterfallFilterOptions" [value]="option">{{option}}</mat-option>
       </mat-select>
-      <!-- <mat-error *ngIf="waterfallFilter.invalid">{{getErrorText(waterfallFilter)}}</mat-error> -->
+      <!- <mat-error *ngIf="waterfallFilter.invalid">{{getErrorText(waterfallFilter)}}</mat-error> ->
     </mat-form-field>
   
     <mat-form-field>
@@ -19,7 +95,7 @@
       <mat-select [formControl]="variableBenchmark" placeholder="Select">
         <mat-option *ngFor="let option of variableBenchmarkOptions" [value]="option">{{option}}</mat-option>
       </mat-select>
-      <!-- <mat-error *ngIf="variableBenchmark.invalid">{{getErrorText(variableBenchmark)}}</mat-error> -->
+      <!- <mat-error *ngIf="variableBenchmark.invalid">{{getErrorText(variableBenchmark)}}</mat-error> ->
     </mat-form-field>
 
         <div class="waterfall-section">
@@ -43,4 +119,4 @@
         </div>
   
     <button type="submit" mat-raised-button color="primary">Save</button>
-  </form>
+  </form> -->
